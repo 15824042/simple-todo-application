@@ -15,14 +15,22 @@ let tasks = [
  * 
  */
 function addTask(title) {
-    const task = { isDone: false }
+    // 修正箇所: 引数で受け取った 'title' をそのまま使用する
+    const newTask = {
+        title: title, // ここを引数の 'title' に変更
+        isDone: false,
+    };
+    tasks.push(newTask);
+    drawTask(newTask, tasks.length - 1);
+}
 
-    // やることのタイトルを設定(このままだと、すべてのタイトルがHello Worldになってしまう！)
-    task.title = "Hello World"
+function onUpdateIsDone(task) {
+    return { ...task, isDone: !task.isDone };
+}
 
-    // 以降は無視して良い
-    tasks.push(task);
-    drawTask(task, tasks.length - 1);
+function onTaskTitleClicked(task) {
+    // 必要に応じてタスククリック時の処理を実装
+    return { ...task, isDone: !task.isDone }; // 例: クリックで完了状態を切り替える
 }
 
 /**
